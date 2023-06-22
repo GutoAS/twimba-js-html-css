@@ -1,5 +1,14 @@
-import { tweetsData } from "./data.js";
+import { tweetsData as tweetsDataDB } from "./data.js";
 import { v4 as uuidv4 } from "https://jspm.dev/uuid";
+
+let tweetsData = tweetsDataDB;
+const tweetsFromLocalStorage = JSON.parse(localStorage.getItem("myTweets"));
+
+if (tweetsFromLocalStorage.length > 0) {
+  tweetsData = tweetsFromLocalStorage;
+} else {
+  localStorage.setItem("myTweets", JSON.stringify(tweetsDataDB));
+}
 
 document.addEventListener("click", function (e) {
   if (e.target.dataset.like) {
@@ -93,7 +102,6 @@ function handleDeleteClick(tweetId) {
   const tweetIndex = tweetsData.indexOf(tweetObj);
   if (tweetIndex != -1) {
     tweetsData.splice(tweetIndex, 1);
-    console.log(tweetsData);
     render();
   }
 }
@@ -185,6 +193,8 @@ function getFeedHtml() {
 
 function render() {
   document.getElementById("feed").innerHTML = getFeedHtml();
+  localStorage.setItem("myTweets", JSON.stringify(tweetsData));
+  console.log(tweetsData);
 }
 
 render();
