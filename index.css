@@ -9,8 +9,9 @@ body {
 
 h1 {
   color: #0f8cdf;
-  margin-bottom: 10px;
+  margin: 0;
   font-size: 20px;
+  padding: 0;
 }
 
 i {
@@ -38,14 +39,11 @@ header {
   margin: 0 auto;
 }
 
-header {
-  padding-bottom: 25px;
-}
-
 .tweet-input-area {
   display: flex;
   align-items: flex-start;
   gap: 10px;
+  margin-top: 10px;
 }
 
 /* textareas + btn */
@@ -131,4 +129,8 @@ button {
 /* utility */
 .hidden {
   display: none;
+}
+
+.deleteIcon:hover {
+  color: red;
 }
