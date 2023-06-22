@@ -11,7 +11,9 @@ document.addEventListener("click", function (e) {
   } else if (e.target.id === "tweet-btn") {
     handleTweetBtnClick();
   } else if (e.target.dataset.replyBtn) {
-    handleReplybtn(e.target.dataset.replyBtn);
+    handleReplybtnClick(e.target.dataset.replyBtn);
+  } else if (e.target.dataset.delete) {
+    handleDeleteClick(e.target.dataset.delete);
   }
 });
 
@@ -67,7 +69,7 @@ function handleTweetBtnClick() {
   }
 }
 
-function handleReplybtn(tweetId) {
+function handleReplybtnClick(tweetId) {
   const tweetInputReply = document.getElementById("textarea-" + tweetId);
   const tweetReplyArray = tweetsData.filter(function (tweet) {
     return tweet.uuid === tweetId;
@@ -82,6 +84,18 @@ function handleReplybtn(tweetId) {
     render();
   }
   tweetInputReply.value = "";
+}
+
+function handleDeleteClick(tweetId) {
+  const tweetObj = tweetsData.filter(function (tweet) {
+    return tweet.uuid === tweetId;
+  })[0];
+  const tweetIndex = tweetsData.indexOf(tweetObj);
+  if (tweetIndex != -1) {
+    tweetsData.splice(tweetIndex, 1);
+    console.log(tweetsData);
+    render();
+  }
 }
 
 function getFeedHtml() {
